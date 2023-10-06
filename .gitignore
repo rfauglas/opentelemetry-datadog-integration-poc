@@ -1,0 +1,67 @@
+*.log
+*.pot
+*.swp
+*.pyc
+__pycache__/
+crawled*
+!default.*
+.DS_Store
+.project
+.pydevproject
+.settings
+.metadata
+.coverage
+trash
+local_settings.py
+old_*
+.vscode/symbols.json
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.yml
+Docker/db/2-latest.sql
+src/*
+
+# Backup files created by python 2to3
+*.bak
+
+# Pytests
+.cache/*
+.pytest_cache/*
+
+# BDD
+reports/*
+
+# Coverage
+.coveragerc
+.coverage
+htmlcov/
+zero_gachis/apps/htmlcov/*
+
+# Folder used to put sql dump to initialize docker db in dev env
+db_scripts
+
+# Pycharm user-settings cached files
+.idea/*
+
+# Pycharm shared settings
+!.idea/runConfigurations
+
+# vscode
+*.code-workspace
+
+# Do not keep track of file saved via a models.FileField
+zero_gachis/upload/
+
+# Docker-compose development configuration
+.env
+
+# Terraform
+.terraform/*
+terraform.tfstate*
+
+# Mypy
+.mypy_cache/
+
+# pyenv
+.python-version

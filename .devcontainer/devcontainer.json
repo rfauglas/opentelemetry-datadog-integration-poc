@@ -1,0 +1,19 @@
+{
+    "name": "poc",
+    "dockerComposeFile": ["../docker-compose.yml"],
+    "service": "poc",
+    "workspaceFolder": "/home/src/opentelemetry-poc/",
+    "shutdownAction": "stopCompose",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"github.vscode-github-actions",
+				"ms-python.black-formatter"
+			]
+        }
+    }
+}

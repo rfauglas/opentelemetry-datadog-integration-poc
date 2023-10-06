@@ -1,0 +1,50 @@
+[flake8]
+ignore =
+    # Allow more readable nesting structure
+    E131,
+    # Allow to write operator after line break
+    W503,
+    E722, # Allow bare excepts
+    E731, # Allow lambda
+
+# In some cases, as determined by PEP 8, Black will enforce an equal amount of whitespace around slice operators.
+# Due to this, Flake8 will raise E203 whitespace before ':' warnings.
+# Since this warning is not PEP 8 compliant, Flake8 should be configured to ignore it via extend-ignore = E203.
+# Cf: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#id1
+#
+# E501- Black is responsible do deal with line length, so we disable this check for Flake8.
+extend-ignore = E203, E501
+
+exclude =
+    .git,
+    .pytest_cache,
+    .vscode,
+    __pycache__,
+    conftest.py,
+    crons,
+    db_scripts,
+    docs,
+    fixtures,
+    manage.py,
+    migrations,
+    nginx,
+    requirements,
+    scripts,
+    settings,
+    setup.py,
+    static,
+    templates,
+    tools,
+    zero_gachis/apps/guide,
+    zero_gachis/apps/rayons,
+    zero_gachis/apps/reports,
+    zero_gachis/apps/stats,
+    zero_gachis/apps/survey,
+    zero_gachis/apps/tests,
+    zero_gachis/apps/utilisateurs,
+    zero_gachis/fixtures,
+    zero_gachis/libs,
+    zero_gachis/locale,
+    zero_gachis/search,
+    zero_gachis/settings,
+    zero_gachis/templates,

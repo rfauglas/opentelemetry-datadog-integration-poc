@@ -1,0 +1,5 @@
+opentelemetry-sdk == 1.19.*
+opentelemetry-exporter-otlp-proto-grpc==1.19.*
+opentelemetry-instrumentation-celery==0.40b0
+pip-tools==6.13.*
+pytest

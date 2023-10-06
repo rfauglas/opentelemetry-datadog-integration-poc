@@ -1,0 +1,38 @@
+version: '3.0'
+
+services:
+
+  # Django
+  poc:
+    build:
+      context: ./
+      args:
+        - GITHUB_USER=${GITHUB_USER}
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+    entrypoint: []
+    command: ["bash"]
+    environment:
+      DEBUG: 1
+      OTEL_SERVICE_NAME: otel_poc
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://agent:4317
+    tty: true
+    working_dir: /home/src/opentelemetry-poc
+    volumes:
+      - .:/home/src/opentelemetry-poc
+
+  agent:
+    container_name: agent
+    image: "gcr.io/datadoghq/agent:latest"
+    ports:
+     - 4317:4317
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+      - DD_SITE=datadoghq.com
+      - DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_GRPC_ENDPOINT=0.0.0.0:4317
+      - DD_HOSTNAME=${DD_HOSTNAME}
+      - DD_LOGS_ENABLED="true"
+      - DD_ENV=sandbox
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
