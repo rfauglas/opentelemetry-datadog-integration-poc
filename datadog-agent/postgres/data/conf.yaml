@@ -1,0 +1,21 @@
+instances:
+  # - host: <host_name>
+  #   port: 5432
+  #   username: <username>
+  #   password: <password>
+  #   dbname: <dbname>
+  #   max_relations: 15000
+  #   query_timeout: 100000
+  #   custom_queries: 
+  #     - metric_prefix: terminal_synch
+  #       query: WITH LatestPulldata AS (     select 	    shop_id, 	    machine_id,         entity_name,         need_pull,         extract (day from    AGE(         CURRENT_TIMESTAMP,         CASE             WHEN gp.cursor IS NULL THEN gp.last_pull_at             ELSE gp.remote_updated_at         END     )) AS unsync_since,         ROW_NUMBER() OVER (PARTITION BY gp.shop_id, gp.machine_id, gp.entity_name  ORDER BY gp.created_at DESC) AS row_num     FROM gms_pulldatainfo gp ) SELECT      um.id AS shop_id,      gt.id AS terminal_id,      gp.entity_name,     gt.serial_number AS serial_number,      gt.label AS terminal_label,      gp.need_pull,      gp.unsync_since FROM gms_terminal gt  INNER JOIN gms_appconfiguration ga      ON ga.id = gt.app_configuration_id  INNER JOIN utilisateurs_magasin um       ON um.id = ga.shop_id  INNER JOIN LatestPulldata gp     ON gp.shop_id = um.id      AND gp.machine_id = gt.serial_number      AND gp.row_num = 1 where unsync_since is not null 
+  #       columns: 
+  #         - {name: shop_id, type: tag}
+  #         - {name: terminal_id, type: tag}
+  #         - {name: entity_name, type: tag}
+  #         - {name: serial_number, type: tag}
+  #         - {name: terminal_label, type: tag}
+  #         - {name: duration, type: gauge }
+  #         - {name: need_pull, type: gauge}
+
+

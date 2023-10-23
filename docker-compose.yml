@@ -33,6 +33,7 @@ services:
       - DD_LOGS_ENABLED="true"
       - DD_ENV=sandbox
     volumes:
+      - ./datadog-agent/postgres/data:/etc/datadog-agent/conf.d/postgres.d/
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
