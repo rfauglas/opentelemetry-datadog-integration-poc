@@ -1,3 +1,4 @@
+from time import sleep
 import pytest
 
 from os import environ
@@ -12,7 +13,7 @@ import opentelemetry.metrics as metrics_api
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.metrics import Meter
 import random
-from opentelemetry.metrics import Histogram
+from opentelemetry.metrics import Histogram, Counter
 
 
 @pytest.fixture()
@@ -30,10 +31,15 @@ def setup():
     meter: Meter = metric_provider.get_meter("test_meter_name")
 
     return (
-        meter.create_histogram(
-            name="sandbox.metrics.test_histogram_name",
-            unit="seconds",
-            description="A test metric for exploring opentelemetry metrics integration with",
+        # meter.create_histogram(
+        #     name="sandbox.metrics.test_histogram_name",
+        #     unit="seconds",
+        #     description="A test metric for exploring opentelemetry metrics integration with",
+        # ),
+        meter.create_counter(
+            name="sandbox.metrics.test_counter_name",
+            unit="peanuts",
+            description="A test metric for counter metric",
         ),
         exporter,
         metric_reader,
@@ -42,11 +48,16 @@ def setup():
 
 def test_send_metrics(setup):
     exporter: OTLPMetricExporter
-    metric: Histogram
+    metric: Counter
     metric_reader: PeriodicExportingMetricReader
     (metric, exporter, metric_reader) = setup
     for i in range(1, 200):
-        metric.record(
+        sleep(2)
+        # metric.record(
+        #     random.randint(0, 9),
+        #     attributes={"attrt1": "ATTR1", "attr2": "ATTR2"},
+        # )
+        metric.add(
             random.randint(0, 9),
             attributes={"attrt1": "ATTR1", "attr2": "ATTR2"},
         )
